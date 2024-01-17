@@ -16,7 +16,7 @@ export default function NoteCharactersRemaining() {
   const lengthExceeded = charactersRemaining < 0;
 
   return (
-    <div className="flex items-center justify-between text-sm py-1">
+    <div className="flex max-sm:flex-col-reverse items-center sm:justify-between text-sm py-1">
       <span
         className={lengthExceeded ? "text-destructive visible" : "invisible"}
       >

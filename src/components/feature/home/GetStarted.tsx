@@ -17,9 +17,9 @@ const GetStarted = () => {
     }
   };
   return (
-    <MotionDivMT className="mt-10 flex gap-x-4 justify-center items-center">
+    <MotionDivMT className="mt-10 flex max-sm:flex-col gap-4 justify-center items-center">
       <Input
-        className="w-fit text-base py-2"
+        className="w-fit text-base py-2 max-sm:w-full"
         placeholder="Type code here"
         value={code}
         onChange={(e) =>
@@ -31,7 +31,10 @@ const GetStarted = () => {
           if (e.key == "Enter") handleGetStartedClick();
         }}
       />
-      <Button className="py-2 text-base" onClick={handleGetStartedClick}>
+      <Button
+        className="py-2 text-base max-sm:w-full"
+        onClick={handleGetStartedClick}
+      >
         Get Started
       </Button>
     </MotionDivMT>
