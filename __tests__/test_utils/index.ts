@@ -1,6 +1,6 @@
 export function generateRandomString(length: number): string {
   const charset =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    "`1234567890-=~!@#$%^&*()_+qwertyuiop[]\\QWERTYUIOP{}|asdfghjkl;':\"ASDFGHJKL;\"'zxcvbnm,./ZXCVBNM<>?";
   let result = "";
 
   for (let i = 0; i < length; i++) {
