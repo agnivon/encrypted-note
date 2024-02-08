@@ -7,11 +7,17 @@ import { describe, expect, test } from "@jest/globals";
 import { generateRandomString } from "../test_utils";
 
 describe("utils tests", () => {
-  test("encrypt/decrypt", () => {
+  test("encrypt/decrypt success", () => {
     const plainText = generateRandomString(3000);
     const secret = generateRandomString(256);
     const cipherText = encrypt(plainText, secret);
     expect(decrypt(cipherText, secret)).toStrictEqual(plainText);
+  });
+  test("encrypt/decrypt failure", () => {
+    const plainText = generateRandomString(3000);
+    const secret = generateRandomString(256);
+    const cipherText = encrypt(plainText, secret);
+    expect(decrypt(cipherText, "gibberish")).toStrictEqual("");
   });
   test("hashDigest", () => {
     const plainText = generateRandomString(3000);

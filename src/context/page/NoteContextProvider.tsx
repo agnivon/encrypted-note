@@ -30,6 +30,7 @@ const NoteContextProvider = ({
     content: note?.content || "",
     showPasswordSetModal: false,
     showNukeConfirmationModal: false,
+    showCloseConfirmationModal: null,
   };
   const [state, dispatch] = React.useReducer(
     notePageStateReducer,
