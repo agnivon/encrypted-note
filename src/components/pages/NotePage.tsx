@@ -10,6 +10,7 @@ import Spinner from "../ui/spinner";
 import RenderIf from "../utils/RenderIf";
 import { NukeConfirmationModal } from "../feature/note/NukeConfirmationModal";
 import React from "react";
+import CloseConfirmationModal from "../feature/note/CloseConfirmationModal";
 
 type NotePageProps = {
   code: string;
@@ -23,6 +24,7 @@ function PageComponent(props: NotePageProps) {
     <>
       <PasswordSetModal />
       <NukeConfirmationModal note={note} code={code} />
+      <CloseConfirmationModal />
       <NoteStatusSection code={code} noteExists={noteExists} />
       <NoteEditorSection note={note} code={code} />
     </>

@@ -12,14 +12,20 @@ import { useNoteContext } from "@/context/page/NoteContextProvider";
 import useSaveNote from "@/hooks/data/useSaveNote";
 import { NotePageActions } from "@/reducers/NotePageStateReducer";
 import { FNote } from "@/types";
-import { cn, decrypt, getSaveNotePayload } from "@/utils";
+import { cn, decrypt, getSaveNotePayload, isNoteChanged } from "@/utils";
 import { motion } from "framer-motion";
 import { PenLineIcon, Trash2, UnlockKeyhole } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import NoteCharactersRemaining from "./NoteCharactersRemaining";
 
-const NoteEditorSection = ({ code }: { note: FNote | null; code: string }) => {
+const NoteEditorSection = ({
+  note,
+  code,
+}: {
+  note: FNote | null;
+  code: string;
+}) => {
   const { state, dispatch } = useNoteContext();
   const { content, editable, isEncrypted, isLocked } = state;
 
@@ -51,14 +57,20 @@ const NoteEditorSection = ({ code }: { note: FNote | null; code: string }) => {
   const handleSaveAndCloseClick = async () => {
     handleSaveClick().then((isSuccess) => {
       if (isSuccess) {
-        handleCloseClick();
+        router.push(Routes.home);
       }
     });
   };
   const handleRefreshClick = async () => {
-    location.reload();
+    if (isNoteChanged({ note, state })) {
+      dispatch(NotePageActions.setShowCloseConfirmationModal("refresh"));
+    } else location.reload();
   };
-  const handleCloseClick = () => router.push(Routes.home);
+  const handleCloseClick = () => {
+    if (isNoteChanged({ note, state })) {
+      dispatch(NotePageActions.setShowCloseConfirmationModal("close"));
+    } else router.push(Routes.home);
+  };
 
   return (
     <motion.div variants={fadeO} initial="hidden" animate="visible">

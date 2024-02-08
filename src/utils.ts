@@ -50,6 +50,24 @@ export function getSaveNotePayload({
   };
 }
 
+export function isNoteChanged({
+  note,
+  state,
+}: {
+  note: FNote | null;
+  state: NotePageState;
+}) {
+  const decryptedCurrentContent = state.content;
+
+  const decryptedNoteContent = state.unlockedContent || note?.content || "";
+
+  return (
+    decryptedCurrentContent !== decryptedNoteContent ||
+    state.isEncrypted !== (note?.isEncrypted || false) ||
+    state.password !== state.unlockPassword
+  );
+}
+
 export function getFNoteFromNote(note: Note): FNote {
   const { digest, ...fNote } = note;
   return fNote;

@@ -1,17 +1,9 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Lock } from "lucide-react";
-import {
-  AlertTemplateProps,
-  Provider,
-  positions,
-  transitions,
-} from "react-alert";
 import { Toaster } from "sonner";
 import { useThemeContext } from "./ThemeContextProvider";
 
-const AlertTemplate = ({
+/* const AlertTemplate = ({
   style,
   options,
   message,
@@ -35,7 +27,7 @@ const options = {
   offset: "30px",
   // you can also just use 'scale'
   transition: transitions.SCALE,
-};
+}; */
 
 const AlertProvider = ({ children }: { children?: React.ReactNode }) => {
   const { theme } = useThemeContext();
@@ -43,9 +35,7 @@ const AlertProvider = ({ children }: { children?: React.ReactNode }) => {
   return (
     <>
       <Toaster closeButton theme={theme} />
-      <Provider {...options} template={AlertTemplate}>
-        {children}
-      </Provider>
+      {children}
     </>
   );
 };

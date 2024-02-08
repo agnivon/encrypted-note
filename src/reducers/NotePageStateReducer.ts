@@ -63,6 +63,11 @@ class NotePageStateReducer extends ImmerReducer<NotePageState> {
   nukeConfirmationModalClosed() {
     this.draftState.showNukeConfirmationModal = false;
   }
+  setShowCloseConfirmationModal(
+    show: NotePageState["showCloseConfirmationModal"]
+  ) {
+    this.draftState.showCloseConfirmationModal = show;
+  }
 }
 
 const NotePageActions = createActionCreators(NotePageStateReducer);

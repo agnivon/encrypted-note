@@ -19,4 +19,5 @@ export type NotePageState = {
   content: string;
   showPasswordSetModal: boolean;
   showNukeConfirmationModal: boolean;
+  showCloseConfirmationModal: "close" | "refresh" | null;
 };
