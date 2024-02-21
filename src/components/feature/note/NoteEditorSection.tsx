@@ -18,6 +18,7 @@ import { PenLineIcon, Trash2, UnlockKeyhole } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import NoteCharactersRemaining from "./NoteCharactersRemaining";
+import CopyButton from "./CopyButton";
 
 const NoteEditorSection = ({
   note,
@@ -121,20 +122,6 @@ const NoteEditorSection = ({
               variants={fadeAndSlideUp}
             >
               <Tabs defaultValue="reading">
-                {/* <Button
-                  variant={editable ? "secondary" : "outline"}
-                  className={cn("rounded-r-none", editable ? "border-4" : "")}
-                  onClick={() => dispatch(NotePageActions.editingViewClicked())}
-                >
-                  Editing View
-                </Button>
-                <Button
-                  variant={!editable ? "secondary" : "outline"}
-                  className={cn("rounded-l-none", !editable ? "border-4" : "")}
-                  onClick={() => dispatch(NotePageActions.readingViewClicked())}
-                >
-                  Reading View
-                </Button> */}
                 <TabsList>
                   <TabsTrigger
                     value={"editing"}
@@ -162,6 +149,9 @@ const NoteEditorSection = ({
                     dispatch(NotePageActions.encryptWithPasswordToggled())
                   }
                 />
+              </div>
+              <div className="sm:ml-auto max-sm:w-full">
+                <CopyButton value={content} />
               </div>
             </motion.div>
             <motion.div variants={fadeAndSlideUp}>
