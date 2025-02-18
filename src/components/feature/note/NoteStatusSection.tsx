@@ -1,3 +1,5 @@
+"use client";
+
 import MotionDivMT from "@/components/transitions/MotionDivMT";
 
 const NoteStatusSection = ({

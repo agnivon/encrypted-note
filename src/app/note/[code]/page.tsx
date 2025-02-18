@@ -1,3 +1,3 @@
-import NotePage from "@/components/pages/NotePage";
+import NoteDataWrapper from "@/components/wrappers/NoteDataWrapper";
 
-export default NotePage;
+export default NoteDataWrapper;
