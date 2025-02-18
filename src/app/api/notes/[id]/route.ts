@@ -5,6 +5,7 @@ import { getFNoteFromNote } from "@/utils";
 import { Note } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { getNoteById } from "./_utils";
 
 function checkDigestOrThrow({
   prevDigest,
@@ -24,11 +25,12 @@ function checkDigestOrThrow({
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const note = await prisma.note.findUnique({ where: { id: params.id } });
-    return NextResponse.json(note ? getFNoteFromNote(note) : null);
+    const id = (await params).id;
+    const note = await getNoteById(id);
+    return NextResponse.json(note);
   } catch (err) {
     return new Response("Internal Server Error", {
       status: 500,
@@ -39,9 +41,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const id = (await params).id;
     const { prevDigest, ...note } = NoteUpdatePayloadSchema.required({
       content: true,
       isEncrypted: true,
@@ -49,7 +52,7 @@ export async function PUT(
     }).parse(await request.json());
 
     const prevNote = await prisma.note.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     checkDigestOrThrow({
@@ -58,9 +61,9 @@ export async function PUT(
     });
 
     const updatedNote = await prisma.note.upsert({
-      where: { id: params.id },
+      where: { id: id },
       create: {
-        id: params.id,
+        id: id,
         content: note.content,
         isEncrypted: note.isEncrypted,
         digest: note.digest,
@@ -93,14 +96,15 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const id = (await params).id;
     const searchParams = request.nextUrl.searchParams;
     const prevDigest = searchParams.get("prevDigest");
 
     const prevNote = await prisma.note.findUniqueOrThrow({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     checkDigestOrThrow({
@@ -109,7 +113,7 @@ export async function DELETE(
     });
 
     const deletedNote = await prisma.note.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     return NextResponse.json(getFNoteFromNote(deletedNote));

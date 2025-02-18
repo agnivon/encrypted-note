@@ -1,5 +1,5 @@
 import { saveNote } from "@/endpoints";
-import { FNote, NoteUpdatePayload } from "@/types";
+import { NoteUpdatePayload } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useSaveNote = () => {

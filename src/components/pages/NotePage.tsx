@@ -1,16 +1,13 @@
 "use client";
 
 import NoteContextProvider from "@/context/page/NoteContextProvider";
-import useGetNote from "@/hooks/data/useGetNote";
 import { FNote } from "@/types";
-import NoteEditorSection from "../feature/note/NoteEditorSection";
-import NoteStatusSection from "../feature/note/NoteStatusSection";
-import PasswordSetModal from "../feature/note/PasswordSetModal";
-import Spinner from "../ui/spinner";
-import RenderIf from "../utils/RenderIf";
-import { NukeConfirmationModal } from "../feature/note/NukeConfirmationModal";
 import React from "react";
 import CloseConfirmationModal from "../feature/note/CloseConfirmationModal";
+import NoteEditorSection from "../feature/note/NoteEditorSection";
+import NoteStatusSection from "../feature/note/NoteStatusSection";
+import { NukeConfirmationModal } from "../feature/note/NukeConfirmationModal";
+import PasswordSetModal from "../feature/note/PasswordSetModal";
 
 type NotePageProps = {
   code: string;
@@ -31,18 +28,18 @@ function PageComponent(props: NotePageProps) {
   );
 }
 
-export default function NotePage({ params }: { params: { code: string } }) {
-  const { note, isSuccess, isFetching } = useGetNote(params.code);
+export default function NotePage({
+  note,
+  code,
+}: {
+  note: FNote | null;
+  code: string;
+}) {
   return (
     <>
-      <RenderIf isTrue={isFetching}>
-        <Spinner />
-      </RenderIf>
-      <RenderIf isTrue={!isFetching && isSuccess}>
-        <NoteContextProvider note={note}>
-          <PageComponent note={note} code={params.code} />
-        </NoteContextProvider>
-      </RenderIf>
+      <NoteContextProvider note={note}>
+        <PageComponent note={note} code={code} />
+      </NoteContextProvider>
     </>
   );
 }
