@@ -4,11 +4,9 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/utils";
 import { Metadata } from "next";
 import BaseLayout from "@/components/layouts/BaseLayout";
+import { siteMetadata } from "@/config/metadata.config";
 
-export const metadata: Metadata = {
-  title: "Encrypted Note",
-  description: "Secure note storage",
-};
+export const metadata: Metadata = siteMetadata;
 
 const fontSans = FontSans({
   subsets: ["latin"],
