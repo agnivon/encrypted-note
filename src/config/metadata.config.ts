@@ -9,7 +9,7 @@ export const siteMetadata: Metadata = {
   generator: title,
   applicationName: title,
   referrer: "origin-when-cross-origin",
-  keywords: ["Agnivo Neogi", "instagram download", "download instagram posts"],
+  keywords: ["Agnivo Neogi", "encrypted note", "secure online notes"],
   authors: [{ name: "Agnivo Neogi", url: "https://agnivon.com" }],
   creator: "Agnivo Neogi",
   publisher: "Agnivo Neogi",
